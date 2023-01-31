@@ -1,0 +1,39 @@
+using DnD.Character;
+using DnD.Story;
+
+
+// Choice variables
+// Logar Help
+int logarWeaponChoice = 0;
+int logarTellMeChoice = 0;
+int logarByeChoice = 0;
+
+
+// --- CHARACTER CREATION ---
+
+// Choose a Race
+Races.RaceMethods();
+Races.ChooseRace();
+
+// Choose a Class
+Classes.ClassMethods();
+Classes.ChooseClass();
+
+// Choose a Name
+Stats.PlayerStats();
+Logar.LogarGreeting();
+Stats.ChooseName();
+
+
+// --- STORY ---
+// Logar help
+int logarHelpChoice = Logar.LogarHelp();
+
+if (logarHelpChoice == 1)
+    logarWeaponChoice = Logar.LogarWeapon();
+
+else if (logarHelpChoice == 2)
+    logarTellMeChoice = Logar.LogarTellMe();
+
+else if (logarHelpChoice == 3)
+    logarByeChoice =  Logar.LogarDontNeedYou();
