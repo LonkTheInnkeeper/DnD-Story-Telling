@@ -1,0 +1,70 @@
+using System.Security.AccessControl;
+
+namespace DnD.Core
+{
+    public class CoreMethods
+    {
+        public static bool agreed = false;
+
+        public static int Dice(int sides)
+        {
+            Random dice = new Random();
+            int roll = dice.Next(1, sides + 1);
+
+            return roll;
+        }
+
+
+        public static void Agree()
+        {
+            bool agreeChosen = false;
+
+            Console.WriteLine("Do you agree? Y/N");
+
+            while (!agreeChosen)
+            {
+                string agree = Console.ReadLine();
+                if (agree == "Y" || agree == "y")
+                {
+                    agreed = true;
+                    agreeChosen = true;
+                    Console.Clear();
+                }
+                else if (agree == "N" || agree == "n")
+                {
+                    agreed = false;
+                    agreeChosen = true;
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("That's not right. Try again.");
+                }
+            }
+        }
+
+
+        public static int Parsing(int range)
+        {
+            range++;
+            bool parse = false;
+            int parseResult = 0;
+
+            while (!parse)
+            {
+                parse = Int32.TryParse(Console.ReadLine(), out parseResult);
+
+                if (parse && parseResult < range && parseResult > 0)
+                    break;
+
+                else
+                {
+                    Console.WriteLine("That's not right. Try again.");
+                    parse = false;
+                    parseResult = 0;
+                }
+            }
+            return parseResult;
+        }
+    }
+}
