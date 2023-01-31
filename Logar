@@ -1,0 +1,63 @@
+using DnD.Character;
+using DnD.Core;
+
+namespace DnD.Story
+{
+    public class Logar
+    {
+        static string spacer = "-------------------------------------------------------";
+
+        public static void LogarGreeting()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Logar");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(String.Empty);
+            Console.WriteLine("Hello adventurer and welcome to our humble willage of Laenath. I wonder what brings you here" +
+                "\nat these bad times. The snow just can't stop falling." +
+                "\nPlease, tell me who you are.");
+            Console.WriteLine(spacer);
+        }
+
+
+        public static int LogarHelp()
+        {
+            Stats.PlayerStats();
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("Logar");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine(String.Empty);
+
+            Console.WriteLine($"Ah, nice to meet you {Stats.playerName}. You're the one that's supposed to get" +
+                $"\nrid of the aweful troll, that keeps eating our cows, right?" +
+                $"\nI'm so glad you're here. My name is Logar and I'm a local blacksmith." +
+                "\nWhat can I help you with?");
+
+            Console.WriteLine(spacer);
+
+            Console.WriteLine("1. I need a weapon.");
+            Console.WriteLine("2. Tell me what's going on.");
+            Console.WriteLine("3. I don't need you. Bye.");
+            Console.WriteLine(String.Empty);
+
+            return CoreMethods.Parsing(3);
+        }
+
+
+        public static int LogarWeapon()
+        {
+            return CoreMethods.Parsing(3);
+        }
+
+        public static int LogarTellMe()
+        {
+            return CoreMethods.Parsing(3);
+        }
+
+        public static int LogarDontNeedYou()
+        {
+            return CoreMethods.Parsing(3);
+        }
+    }
+}
