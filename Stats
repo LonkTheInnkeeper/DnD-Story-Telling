@@ -1,0 +1,128 @@
+using DnD.Story;
+
+namespace DnD.Character
+{
+    public class Stats
+    {
+        static string spacer = "-------------------------------------------------------";
+
+        // Player stats
+        public static string playerName = string.Empty;
+        public static string playerRace = string.Empty;
+        public static string playerClass = string.Empty;
+
+        public static string[] raceNames = new string[] { "Human", "Elf", "Hobbit", "Dwarf" };
+        public static string[] classNames = new string[] { "Warrior", "Wizard", "Hunter", "Thief" };
+
+        static int lvl = 1;
+
+        static int strenght = 0;
+        static int agility = 0;
+        static int endurance = 0;
+        static int intelligence = 0;
+        static int perception = 0;
+        static int charisma = 0;
+
+        public static int[] stats = new int[] { strenght, agility, endurance, intelligence, perception, charisma };
+
+        static int hp;
+
+        // Temp stats (t = temporary)
+        static int tStrenght = 0;
+        static int tAgility = 0;
+        static int tEndurance = 0;
+        static int tIntelligence = 0;
+        static int tPerception = 0;
+        static int tCharisma = 0;
+
+        public static int[] tempStats = new int[] { tStrenght, tAgility, tEndurance, tIntelligence, tPerception, tCharisma };
+
+        // Races
+        public static bool human = false;
+        public static bool elf = false;
+        public static bool hobbit = false;
+        public static bool dwarf = false;
+
+        public static bool[] racesBools = new bool[] { human, elf, hobbit, dwarf };
+
+        // Classes
+        public static bool warrior;
+        public static bool wizard;
+        public static bool hunter;
+        public static bool thief;
+
+        public static bool[] classesBools = new bool[] { warrior, wizard, hunter, thief };
+
+        public static void PlayerStats()
+        {
+            Console.WriteLine(spacer);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.Write($"Name: {playerName}     ");
+            Console.WriteLine($"Level: {lvl}");
+            Console.Write($"Race: {playerRace}     ");
+            Console.WriteLine($"Class: {playerClass}");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine($"" +
+                $"Strenght = {strenght}       " +
+                $"Agility = {agility}" +
+                $"\nEndurance = {endurance}      " +
+                $"Intelligence = {intelligence}" +
+                $"\nPerception = {perception}     " +
+                $"Charisma = {charisma}");
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine(spacer);
+        }
+
+
+        public static void TempStats()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            Console.WriteLine($"Strenght = {tempStats[0]}" +
+        $"\nAgility = {tempStats[1]}" +
+        $"\nEndurance = {tempStats[2]}" +
+        $"\nIntelligence = {tempStats[3]}" +
+        $"\nPerception = {tempStats[4]}" +
+        $"\nCharisma = {tempStats[5]}");
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine(spacer);
+        }
+
+
+        public static void CombineStats()
+        {
+            strenght += tempStats[0];
+            agility += tempStats[1];
+            endurance += tempStats[2];
+            intelligence += tempStats[3];
+            perception += tempStats[4];
+            charisma += tempStats[5];
+
+            ResetTempStats();
+        }
+
+
+        public static void ResetTempStats()
+        {
+            for (int i = 0; i < tempStats.Length; i++)
+            {
+                tempStats[i] = 0;
+            }
+        }
+
+
+        public static void ChooseName()
+        {
+            Console.WriteLine("Choose your name:");
+            Console.WriteLine(string.Empty);
+            playerName = Console.ReadLine();
+            Console.Clear();
+        }
+    }
+}
