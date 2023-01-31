@@ -1,0 +1,137 @@
+using DnD.Core;
+using DnD.Story;
+using System.Security.Cryptography;
+
+namespace DnD.Character
+{
+    internal class Classes
+    {
+        // Stats Index:
+        // 0 = Strenght
+        // 1 = Agility
+        // 2 = Endurance
+        // 3 = Intelligence
+        // 4 = Perception
+        // 5 = Charisma
+
+
+        // Making a list of Classes
+        static List<Action> listOfClasses = new List<Action>();
+        public static void ClassMethods()
+        {
+            listOfClasses.Add(Warrior);
+            listOfClasses.Add(Wizzard);
+            listOfClasses.Add(Hunter);
+            listOfClasses.Add(Thief);
+        }
+
+
+        // To Entry Point
+        public static void ChooseClass()
+        {
+            while (!CoreMethods.agreed)
+            {
+                int chosenClass = 0;
+
+                Stats.PlayerStats();
+                Logar.LogarGreeting();
+
+                Console.WriteLine("Choose your class:");
+                Console.WriteLine(string.Empty);
+                Console.WriteLine("1. Warrior" +
+                    "\n2. Wizzard" +
+                    "\n3. Hunter" +
+                    "\n4. Thief");
+                Console.WriteLine(string.Empty);
+
+                chosenClass = CoreMethods.Parsing(4);
+
+                Console.Clear();
+                Stats.PlayerStats();
+                Logar.LogarGreeting();
+
+                listOfClasses[chosenClass - 1]();
+
+                Stats.classesBools[chosenClass - 1] = true;
+
+                CoreMethods.Agree();
+
+                if (CoreMethods.agreed)
+                {
+                    Stats.CombineStats();
+
+                    Stats.playerClass = Stats.classNames[chosenClass - 1];
+                }
+                else
+                {
+                    Stats.ResetTempStats();
+                    for (int i = 0; i < Stats.classesBools.Length; i++)
+                    {
+                        Stats.classesBools[i] = false;
+                    }
+                }
+
+                Console.Clear();
+            }
+
+        }
+
+
+        // Classes
+        public static void Warrior()
+        {
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Warriors were born to fight their enemies with muscle and steel." +
+                "\nTheir mighty deeds are an inspiration for songs sang by bards in mead halls." +
+                "\n" +
+                "\nWarriors have bonus +2 in strenght and +1 in engurance." +
+                "\nWarriors have bonus +1 in damage while fighting with swords and axes.");
+            Console.WriteLine(string.Empty);
+
+            Stats.tempStats[0] = 2;
+            Stats.tempStats[2] = 1;
+        }
+
+
+        public static void Wizzard()
+        {
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Wizzards can bend reality to their will by using mysterious powers of the arcanum." +
+                "\nAlthough thier studies are life long, not every wizzard will ever reach their full potential." +
+                "\n" +
+                "\nWizzards have bonus +2 in intelligence and +1 in perception." +
+                "\nWizzards have bonus +1 in damage while fighting with spells.");
+            Console.WriteLine(string.Empty);
+
+            Stats.tempStats[3] = 2;
+            Stats.tempStats[4] = 1;
+        }
+
+
+        public static void Hunter()
+        {
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("The Hunter is a master of the wilderness, a tracker and marksman " +
+                "\nwho hunts down the deadliest beasts. They possess a deep knowledge of survival, " +
+                "\nstealth, and marksmanship, allowing them to navigate dangerous environments and " +
+                "\nprotect their allies from harm.");
+            Console.WriteLine(string.Empty);
+
+            Stats.tempStats[4] = 2;
+            Stats.tempStats[1] = 1;
+        }
+
+
+        public static void Thief()
+        {
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("The Thief is a nimble and cunning character who excels in deception, " +
+                "\nlock-picking, and theft. They slip into the shadows and navigate danger with ease, " +
+                "\nusing their skills to acquire treasure and avoid unwanted attention.");
+            Console.WriteLine(string.Empty);
+
+            Stats.tempStats[4] = 2;
+            Stats.tempStats[2] = 1;
+        }
+    }
+}
