@@ -1,0 +1,177 @@
+using DnD.Core;
+using DnD.Story;
+using System;
+
+namespace DnD.Character
+{
+    public class Races
+    {
+        // Stats Index:
+        // 0 = Strenght
+        // 1 = Agility
+        // 2 = Endurance
+        // 3 = Intelligence
+        // 4 = Perception
+        // 5 = Charisma
+
+
+        // Making a list of Races
+        static List<Action> listOfRaces = new List<Action>();
+        public static void RaceMethods()
+        {
+            listOfRaces.Add(Human);
+            listOfRaces.Add(Elf);
+            listOfRaces.Add(Hobbit);
+            listOfRaces.Add(Dwarf);
+        }
+
+        // To Entry Point
+        public static void ChooseRace()
+        {
+            while (!CoreMethods.agreed)
+            {
+                int chosenRace = 0;
+
+                Stats.PlayerStats();
+                Logar.LogarGreeting();
+
+                Console.WriteLine("Choose your race:");
+                Console.WriteLine(string.Empty);
+                Console.WriteLine("1. Human" +
+                    "\n2. Elf" +
+                    "\n3. Hobbit" +
+                    "\n4. Dwarf");
+                Console.WriteLine(string.Empty);
+
+                chosenRace = CoreMethods.Parsing(4);
+
+                Console.Clear();
+                Stats.PlayerStats();
+                Logar.LogarGreeting();
+
+                listOfRaces[chosenRace - 1]();
+
+                if (chosenRace <= Stats.racesBools.Length + 1)
+                {
+                    Stats.racesBools[chosenRace - 1] = true;
+                    CoreMethods.Agree();
+                }
+
+                if (CoreMethods.agreed)
+                {
+                    Stats.CombineStats();
+                    Stats.playerRace = Stats.raceNames[chosenRace - 1];
+                }
+
+                else
+                {
+                    Stats.ResetTempStats();
+                    for (int i = 0; i < Stats.racesBools.Length; i++)
+                    {
+                        Stats.racesBools[i] = false;
+                    }
+                }
+            }
+            CoreMethods.agreed = false;
+            Console.Clear();
+        }
+
+
+        // Races
+        public static void Human()
+        {
+            Console.WriteLine("Humans are really universal. They can be strong warriours as well as powerfull mages." +
+                "\nBut as they can be good at anything, they don't stand out." +
+                "\n" +
+                "\nHumans have a slight bonus +1 to every atribute.");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Your stats:" +
+                "\n(1d6 + bonus)");
+            Console.WriteLine(string.Empty);
+
+            Stats.human = true;
+
+            for (int i = 0; i < Stats.tempStats.Length; i++)
+            {
+                Stats.tempStats[i] = CoreMethods.Dice(6);
+                Stats.tempStats[i]++;
+            }
+            Stats.TempStats();
+        }
+
+
+        public static void Elf()
+        {
+            RollStats();
+            Stats.tempStats[1] += 3;
+            Stats.tempStats[4] += 2;
+            Stats.tempStats[5] += 1;
+
+            Console.WriteLine("In the deepest forest, there live elves. Binded with the power of nature, they make for gifted hunters." +
+                "\n" +
+                "\nElves have a bonus +3 to agility, +2 to perception and +1 to charisma.");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Your stats:" +
+                "\n(1d6 + bonus)");
+            Console.WriteLine(string.Empty);
+
+            Stats.elf = true;
+
+            Stats.TempStats();
+        }
+
+
+        static void Hobbit()
+        {
+            RollStats();
+            Stats.tempStats[1] += 2;
+            Stats.tempStats[3] += 1;
+            Stats.tempStats[4] += 3;
+
+            Console.WriteLine("Hobbits are tiny creatures, children like, living in luxury hobbit holes. Their tiny fingers fit" +
+                "\nalmost anywhere and their swift moves makes them good scauts and thieves." +
+                "\n" +
+                "\nHobbits have a bonus +2 to agility, +1 to intelligence and +3 to perception.");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Your stats:" +
+                "\n(1d6 + bonus)");
+            Console.WriteLine(string.Empty);
+
+            Stats.hobbit = true;
+
+            Stats.TempStats();
+        }
+
+
+        static void Dwarf()
+        {
+            RollStats();
+            Stats.tempStats[0] += 3;
+            Stats.tempStats[2] += 2;
+            Stats.tempStats[4] += 1;
+
+            Console.WriteLine("Deep in the mountains, in dark golden tunels, there live dwarfs. Their strong arms crush stone" +
+                "\nand form metal into astonishing artworks." +
+                "\n" +
+                "\nDwarfs have a bonus +3 to strenght, +2 to endurance and +1 to perception");
+            Console.WriteLine(string.Empty);
+            Console.WriteLine("Your stats:" +
+                "\n(1d6 + bonus)");
+            Console.WriteLine(string.Empty);
+
+            Stats.dwarf = true;
+
+            Stats.TempStats();
+        }
+
+
+        // Methods
+        static void RollStats()
+        {
+            for (int i = 0; i < Stats.tempStats.Length; i++)
+            {
+                Stats.tempStats[i] = CoreMethods.Dice(6);
+            }
+        }
+    }
+}
